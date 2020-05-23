@@ -9,7 +9,34 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_history">History</string>
+    <string name="menu_city_list">City list</string>
 
     <string name="home_second">Home Second</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="city_name">City Name</string>
+    <string name="time">Time:</string>
+    <string name="date">Date:</string>
+    <string name="find_out_the_weather">Find out the weather</string>
+    <string name="settings">settings</string>
+    <string name="city_list">city list</string>
+    <string name="city_info">city info</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="graphic_settings">Graphic Settings</string>
+    <string name="additional_settings">Additional Settings</string>
+    <string name="weather_conditions">Weather conditions</string>
+    <string name="wind_speed">Wind speed</string>
+    <string name="pressure">Pressure</string>
+    <string name="temperature">Temperature</string>
+    <string name="history">history</string>
+    <string name="title">Attention</string>
+    <string name="yes">OK</string>
+    <string name="message">City not found</string>
+    <string name="moscow">Moscow</string>
+    <string name="st_petersburg">St. Petersburg</string>
+    <string name="arkhangelsk">Arkhangelsk</string>
+
+
+
 </resources>

@@ -6,20 +6,24 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
+        android:id="@+id/nav_city_list"
+        android:name="com.example.weatherver2.ui.CityListFragment"
+        android:label="@string/menu_city_list"
+        tools:layout="@layout/fragment_city_list" />
+    <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.weatherver2.ui.home.HomeFragment"
+        android:name="com.example.weatherver2.ui.StartFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home">
-
+        tools:layout="@layout/fragment_start">
         <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+            android:id="@+id/action_nav_home_to_nav_home_second"
             app:destination="@id/nav_home_second" />
     </fragment>
     <fragment
         android:id="@+id/nav_home_second"
-        android:name="com.example.weatherver2.ui.home.HomeSecondFragment"
+        android:name="com.example.weatherver2.ui.home.HomeFragment"
         android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
             app:destination="@id/nav_home" />
@@ -31,13 +35,13 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.weatherver2.ui.gallery.GalleryFragment"
+        android:name="com.example.weatherver2.ui.WeatherFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_weather" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.weatherver2.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_history"
+        android:name="com.example.weatherver2.ui.HistoryFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>
