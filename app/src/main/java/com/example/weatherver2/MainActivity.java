@@ -6,7 +6,6 @@ import android.view.Menu;
 
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -17,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     List<String> historyList = new ArrayList<>();
@@ -26,13 +25,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        initToolbar();
+        initDrawer();
+        runTheme();
+    }
+
+    private void runTheme() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            setDarkTheme(bundle.getBoolean(SWITCH_DARK));
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
+        }
+    }
+
+    private void initDrawer() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_history)
                 .setDrawerLayout(drawer)
@@ -40,14 +50,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
 
-        Bundle bundle = getIntent().getExtras();
-
-//        if (bundle != null) {
-//            setDarkTheme(bundle.getBoolean(SWITCH_DARK));
-//            finish();
-//            startActivity(new Intent(this, MainActivity.class));
-//        }
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override

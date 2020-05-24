@@ -42,7 +42,7 @@ public class WeatherFragment extends Fragment implements Constants {
         Bundle bundle = getArguments();
         Date date = new Date();
 
-        weatherTemperature.setText(Integer.valueOf(bundle.getString(TEMPERATURE))-273+ " °C");
+        weatherTemperature.setText(bundle.getString(TEMPERATURE) + " °C");
         weatherWindSpeed.setText(bundle.getString(WIND_SPEED));
         weatherPressure.setText(String.format("%.4s", bundle.getString(PRESSURE)));
         weatherConditions.setText(bundle.getString(WEATHER_CONDITIONS));

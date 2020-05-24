@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StartFragment extends Fragment implements Constants,  HttpRequest.CallbackRequest {
+public class StartFragment extends Fragment implements Constants, HttpRequest.CallbackRequest {
 
     private Button settings;
     private Button start;
@@ -59,12 +59,12 @@ public class StartFragment extends Fragment implements Constants,  HttpRequest.C
 
         clickProcessing(settings, settingsFragment);
         clickProcessing(cityList, cityListFragment);
-        clickProcessing(history,historyFragment);
+        clickProcessing(history, historyFragment);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        HttpRequest httpRequest = new HttpRequest(callbackRequest, cityName, startFragment);
-                        httpRequest.request();
+                HttpRequest httpRequest = new HttpRequest(callbackRequest, cityName, startFragment);
+                httpRequest.request();
             }
         });
         return view;
@@ -93,7 +93,7 @@ public class StartFragment extends Fragment implements Constants,  HttpRequest.C
 
     public void showDialog() {
         DialogBuilderFragment dialogBuilderFragment = new DialogBuilderFragment();
-        dialogBuilderFragment.show(getFragmentManager(),"dBuilder");
+        dialogBuilderFragment.show(getFragmentManager(), "dBuilder");
     }
 
     @Override

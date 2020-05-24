@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
@@ -22,7 +21,6 @@ import com.example.weatherver2.data.Constants;
  */
 public class SettingsFragment extends Fragment implements Constants {
 
-    private TextView dateViewSettings;
     private SwitchCompat switchDarkTheme;
     private CheckBox weatherBox;
     private CheckBox windBox;
@@ -42,7 +40,7 @@ public class SettingsFragment extends Fragment implements Constants {
 
         initSettingsField(view);
 
-//        btnSettingsCancelClick(cancelSettingsBtn);
+        btnSettingsCancelClick(cancelSettingsBtn);
 
         okSettingsBtn.setOnClickListener((v) -> {
             Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -56,7 +54,6 @@ public class SettingsFragment extends Fragment implements Constants {
     }
 
     private void initSettingsField(View view) {
-        dateViewSettings = view.findViewById(R.id.dateViewSettings);
         switchDarkTheme = view.findViewById(R.id.themeSwitch);
         weatherBox = view.findViewById(R.id.weatherBox);
         windBox = view.findViewById(R.id.windBox);
@@ -65,11 +62,11 @@ public class SettingsFragment extends Fragment implements Constants {
         cancelSettingsBtn = view.findViewById(R.id.cancelSettingsBtn);
     }
 
-//    private void btnSettingsCancelClick(Button btn) {
-//        btn.setOnClickListener((v) -> {
-//            StartFragment startFragment = new StartFragment();
-//            FragmentManager fragmentManager = getFragmentManager();
-//            fragmentManager.beginTransaction().replace(R.id.layoutForFragments, startFragment).commit();
-//        });
-//    }
+    private void btnSettingsCancelClick(Button btn) {
+        btn.setOnClickListener((v) -> {
+            StartFragment startFragment = new StartFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, startFragment).commit();
+        });
+    }
 }
