@@ -1,8 +1,24 @@
 package com.example.weatherver2.data.weather;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Coord {
-    private float lat;
+
+    @SerializedName("lon")
+    @Expose
     private float lon;
+    @SerializedName("lat")
+    @Expose
+    private float lat;
+
+    public float getLat() {
+        return lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
+    }
 
     public float getLon() {
         return lon;
@@ -12,12 +28,4 @@ public class Coord {
         this.lon = lon;
     }
 
-    public float getLat() {
-        return lat;
-    }
-
-    public void setLat(float lat) {
-        this.lat = lat;
-    }
 }
-
