@@ -45,22 +45,22 @@ public class RetrofitRequest implements Constants {
                 .enqueue(new Callback<WeatherRequest>() {
                     @Override
                     public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
-                            if (response.body() != null && response.isSuccessful()) {
-                                float result = response.body().getMain().getTemp();
-                                String name = response.body().getName();
-                                float windSpeed = response.body().getWind().getSpeed();
-                                float pressure = response.body().getMain().getPressure();
-                                String weather = response.body().getWeather()[0].getDescription();
-                                startFragment.callback(result, name, windSpeed, pressure, weather);
-                            }
-                            if (!response.isSuccessful() && response.body() != null) {
-
-                            }
+                        if (response.body() != null && response.isSuccessful()) {
+                            float result = response.body().getMain().getTemp();
+                            String name = response.body().getName();
+                            float windSpeed = response.body().getWind().getSpeed();
+                            float pressure = response.body().getMain().getPressure();
+                            String weather = response.body().getWeather()[0].getDescription();
+                            startFragment.callback(result, name, windSpeed, pressure, weather);
+                        }
+                        if (!response.isSuccessful() && response.errorBody() != null) {
+                            startFragment.showDialog();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<WeatherRequest> call, Throwable t) {
-                     
+
                     }
                 });
     }
