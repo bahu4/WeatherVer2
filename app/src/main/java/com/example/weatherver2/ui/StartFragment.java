@@ -13,8 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.weatherver2.R;
 import com.example.weatherver2.data.Constants;
-import com.example.weatherver2.data.HttpRequest;
-import com.example.weatherver2.data.weather.WeatherRequest;
+import com.example.weatherver2.data.RetrofitRequest;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DateFormat;
@@ -23,7 +22,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StartFragment extends Fragment implements Constants, HttpRequest.CallbackRequest {
+public class StartFragment extends Fragment implements Constants {
 
     private Button settings;
     private Button start;
@@ -46,7 +45,6 @@ public class StartFragment extends Fragment implements Constants, HttpRequest.Ca
         CityListFragment cityListFragment = new CityListFragment();
         HistoryFragment historyFragment = new HistoryFragment();
 
-        HttpRequest.CallbackRequest callbackRequest = this;
         StartFragment startFragment = this;
 
         initField(view);
@@ -63,8 +61,9 @@ public class StartFragment extends Fragment implements Constants, HttpRequest.Ca
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HttpRequest httpRequest = new HttpRequest(callbackRequest, cityName, startFragment);
-                httpRequest.request();
+                RetrofitRequest retrofitRequest = new RetrofitRequest(cityName, startFragment);
+                retrofitRequest.initRetrofit();
+                retrofitRequest.request();
             }
         });
         return view;
@@ -96,17 +95,20 @@ public class StartFragment extends Fragment implements Constants, HttpRequest.Ca
         dialogBuilderFragment.show(getFragmentManager(), "dBuilder");
     }
 
-    @Override
-    public void callback(WeatherRequest weatherRequest) {
+    public void callback(float temp, String name, float windSpeed, float pressure, String weather) {
         WeatherFragment weatherFragment = new WeatherFragment();
         FragmentManager fragmentManager = getFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putString(TEMPERATURE, String.format("%.0f", weatherRequest.getMain().getTemp()));
-        bundle.putString(WIND_SPEED, String.format("%d", weatherRequest.getWind().getSpeed()));
-        bundle.putString(PRESSURE, String.format("%.0f", weatherRequest.getMain().getPressure()));
-        bundle.putString(WEATHER_CONDITIONS, String.format("%s", weatherRequest.getClouds().getAll()));
-        bundle.putString(CITY_NAME, cityName.getText().toString());
+        bundle.putString(TEMPERATURE, String.format("%.0f", temp));
+        bundle.putString(WIND_SPEED, String.format("%.0f", windSpeed));
+        bundle.putString(PRESSURE, String.format("%.0f", pressure));
+        bundle.putString(WEATHER_CONDITIONS, weather);
+        bundle.putString(CITY_NAME, name.substring(0, 1).toUpperCase() + name.substring(1));
         weatherFragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, weatherFragment).commit();
+    }
+
+    public void callbackError(String error) {
+        showDialog();
     }
 }
