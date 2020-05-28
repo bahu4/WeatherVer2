@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -15,9 +16,12 @@ import com.example.weatherver2.R;
 import com.example.weatherver2.data.Constants;
 import com.example.weatherver2.data.RetrofitRequest;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +34,7 @@ public class StartFragment extends Fragment implements Constants {
     private Button history;
     private TextView dateView;
     private TextInputEditText cityName;
+    private ImageView imageView;
 
     public StartFragment() {
         // Required empty public constructor
@@ -49,6 +54,7 @@ public class StartFragment extends Fragment implements Constants {
 
         initField(view);
         initDate();
+        initWallpaper();
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -69,10 +75,26 @@ public class StartFragment extends Fragment implements Constants {
         return view;
     }
 
+    private void initWallpaper() {
+        int hour = new GregorianCalendar().get(Calendar.HOUR);
+        if (hour > 5 && hour < 23) {
+            Picasso.get()
+                    .load("https://media.fotki.com/2v2HtB1RMx9YC2F.jpg")
+                    .resize(800, 800)
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            Picasso.get()
+                    .load("https://media.fotki.com/2v2HB9ZMGx9YC2F.jpg")
+                    .into(imageView);
+        }
+    }
+
     private void initDate() {
         String currentDate = DateFormat.getDateInstance().format(new Date());
         dateView.setText(currentDate);
     }
+
 
     private void initField(View view) {
         settings = view.findViewById(R.id.settingsBtn);
@@ -81,6 +103,7 @@ public class StartFragment extends Fragment implements Constants {
         dateView = view.findViewById(R.id.dateViewSettings);
         cityName = view.findViewById(R.id.editCityName);
         history = view.findViewById(R.id.historyBtn);
+        imageView = view.findViewById(R.id.imageView);
     }
 
     private void clickProcessing(Button btn, Fragment fragment) {
@@ -106,9 +129,5 @@ public class StartFragment extends Fragment implements Constants {
         bundle.putString(CITY_NAME, name.substring(0, 1).toUpperCase() + name.substring(1));
         weatherFragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, weatherFragment).commit();
-    }
-
-    public void callbackError(String error) {
-        showDialog();
     }
 }
