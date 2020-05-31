@@ -12,6 +12,9 @@
     <string name="menu_history">History</string>
     <string name="menu_city_list">City list</string>
 
+    <string name="menu_delete">Delete</string>
+    <string name="menu_deleteAll">Delete All</string>
+
     <string name="home_second">Home Second</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -37,5 +40,7 @@
     <string name="st_petersburg">St. Petersburg</string>
     <string name="arkhangelsk">Arkhangelsk</string>
     <string name="error">Network connection error</string>
+
+
 
 </resources>
