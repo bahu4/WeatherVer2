@@ -26,7 +26,7 @@ import java.util.GregorianCalendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StartFragment extends Fragment implements Constants {
+public class StartFragment extends Fragment implements Constants, RetrofitRequest.RetrofitCallback {
 
     private Button settings;
     private Button start;
@@ -49,7 +49,7 @@ public class StartFragment extends Fragment implements Constants {
         SettingsFragment settingsFragment = new SettingsFragment();
         CityListFragment cityListFragment = new CityListFragment();
         HistoryFragment historyFragment = new HistoryFragment();
-
+        RetrofitRequest.RetrofitCallback retroCall = this;
         StartFragment startFragment = this;
 
         initField(view);
@@ -67,7 +67,7 @@ public class StartFragment extends Fragment implements Constants {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RetrofitRequest retrofitRequest = new RetrofitRequest(cityName, startFragment);
+                RetrofitRequest retrofitRequest = new RetrofitRequest(cityName, startFragment, retroCall);
                 retrofitRequest.initRetrofit();
                 retrofitRequest.request();
             }
@@ -95,7 +95,6 @@ public class StartFragment extends Fragment implements Constants {
         dateView.setText(currentDate);
     }
 
-
     private void initField(View view) {
         settings = view.findViewById(R.id.settingsBtn);
         start = view.findViewById(R.id.startBtn);
@@ -113,12 +112,8 @@ public class StartFragment extends Fragment implements Constants {
         });
     }
 
-    public void showDialog() {
-        DialogBuilderFragment dialogBuilderFragment = new DialogBuilderFragment();
-        dialogBuilderFragment.show(getFragmentManager(), "dBuilder");
-    }
-
-    public void callback(float temp, String name, float windSpeed, float pressure, String weather) {
+    @Override
+    public void callingBack(float temp, String name, float windSpeed, float pressure, String weather) {
         WeatherFragment weatherFragment = new WeatherFragment();
         FragmentManager fragmentManager = getFragmentManager();
         Bundle bundle = new Bundle();
@@ -129,5 +124,12 @@ public class StartFragment extends Fragment implements Constants {
         bundle.putString(CITY_NAME, name.substring(0, 1).toUpperCase() + name.substring(1));
         weatherFragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, weatherFragment).commit();
+    }
+
+    @Override
+    public void errorDialog(int dialogId) {
+
+        DialogBuilderFragment dialogBuilderFragment = new DialogBuilderFragment(dialogId, this);
+        dialogBuilderFragment.show(getFragmentManager(), "dBuilder");
     }
 }

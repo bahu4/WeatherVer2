@@ -18,10 +18,17 @@ public class RetrofitRequest implements Constants {
     TextInputEditText cityName;
     StartFragment startFragment;
     Retrofit retrofit;
+    RetrofitCallback retrofitCallback;
 
-    public RetrofitRequest(TextInputEditText cityName, StartFragment startFragment) {
+    public interface RetrofitCallback {
+        void callingBack(float temp, String name, float windSpeed, float pressure, String weather);
+        void errorDialog(int dialogId);
+    }
+
+    public RetrofitRequest(TextInputEditText cityName, StartFragment startFragment, RetrofitCallback retrofitCallback) {
         this.cityName = cityName;
         this.startFragment = startFragment;
+        this.retrofitCallback = retrofitCallback;
     }
 
     public void initRetrofit() {
@@ -46,21 +53,21 @@ public class RetrofitRequest implements Constants {
                     @Override
                     public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
                         if (response.body() != null && response.isSuccessful()) {
-                            float result = response.body().getMain().getTemp();
+                            float temp = response.body().getMain().getTemp();
                             String name = response.body().getName();
                             float windSpeed = response.body().getWind().getSpeed();
                             float pressure = response.body().getMain().getPressure();
                             String weather = response.body().getWeather()[0].getDescription();
-                            startFragment.callback(result, name, windSpeed, pressure, weather);
+                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather);
                         }
                         if (!response.isSuccessful() && response.errorBody() != null) {
-                            startFragment.showDialog();
+                            retrofitCallback.errorDialog(1);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<WeatherRequest> call, Throwable t) {
-
+                        retrofitCallback.errorDialog(2);
                     }
                 });
     }

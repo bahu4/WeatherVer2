@@ -36,5 +36,6 @@
     <string name="moscow">Moscow</string>
     <string name="st_petersburg">St. Petersburg</string>
     <string name="arkhangelsk">Arkhangelsk</string>
+    <string name="error">Network connection error</string>
 
 </resources>
