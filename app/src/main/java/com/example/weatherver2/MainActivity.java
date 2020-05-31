@@ -84,12 +84,4 @@ public class MainActivity extends BaseActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-    public void addElement(String cityName) {
-        historyList.add(cityName);
-    }
-
-    public List<String> getHistoryList() {
-        return historyList;
-    }
 }

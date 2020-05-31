@@ -32,4 +32,9 @@ public class HistoryLogic {
         getRepository().delete(history);
         updateHistory();
     }
+
+    public void deleteAll() {
+        getRepository().deleteAll();
+        updateHistory();
+    }
 }

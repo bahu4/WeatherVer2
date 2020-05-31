@@ -13,7 +13,7 @@ public class History {
     @ColumnInfo(name = "NAME")
     public String name;
     @ColumnInfo(name = "TEMPERATURE")
-    public int temp;
+    public String temp;
 
     public long getId() {
         return id;
@@ -39,11 +39,11 @@ public class History {
         this.name = name;
     }
 
-    public int getTemp() {
+    public String getTemp() {
         return temp;
     }
 
-    public void setTemp(int temp) {
+    public void setTemp(String temp) {
         this.temp = temp;
     }
 

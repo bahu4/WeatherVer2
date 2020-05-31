@@ -25,6 +25,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         this.repository = repository;
     }
 
+    @Override
+    public void notifyDataChange() {
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public HistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,18 +48,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         return repository.getCount();
     }
 
-    @Override
-    public void notifyDataChange() {
-        notifyDataSetChanged();
-    }
-
     public void setOnMenuItemClickListener(OnMenuItemClickListener onMenuItemClickListener) {
         this.itemClickListener = onMenuItemClickListener;
     }
 
     public interface OnMenuItemClickListener {
         void onItemDeleteClick(History history);
-
         void onItemDeleteAllClick(History history);
     }
 

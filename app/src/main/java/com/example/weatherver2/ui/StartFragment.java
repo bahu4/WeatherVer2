@@ -12,9 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 
+import com.example.weatherver2.HistoryLogic;
 import com.example.weatherver2.R;
 import com.example.weatherver2.data.Constants;
 import com.example.weatherver2.data.RetrofitRequest;
+import com.example.weatherver2.data.dataRoom.History;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
