@@ -1,11 +1,11 @@
-package com.example.weatherver2.data;
+package com.example.weatherver2.data.dataRoom;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class City {
+public class History {
     @PrimaryKey(autoGenerate = true)
     public long id;
     @ColumnInfo(name = "DATE")
@@ -47,12 +47,12 @@ public class City {
         this.temp = temp;
     }
 
-    public City Copy(long id) {
-        City newCity = new City();
-        newCity.setDate(this.getDate());
-        newCity.setName(this.getName());
-        newCity.setTemp(this.getTemp());
-        newCity.setId(id);
-        return newCity;
+    public History Copy(long id) {
+        History newHistory = new History();
+        newHistory.setDate(this.getDate());
+        newHistory.setName(this.getName());
+        newHistory.setTemp(this.getTemp());
+        newHistory.setId(id);
+        return newHistory;
     }
 }
