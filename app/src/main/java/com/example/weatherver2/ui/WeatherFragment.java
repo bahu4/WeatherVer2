@@ -11,10 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.weatherver2.HistoryLogic;
-import com.example.weatherver2.MainActivity;
 import com.example.weatherver2.R;
+import com.example.weatherver2.Repository;
 import com.example.weatherver2.data.Constants;
-import com.example.weatherver2.data.dataRoom.History;
 
 import java.util.Date;
 
@@ -29,7 +28,6 @@ public class WeatherFragment extends Fragment implements Constants {
     private TextView weatherWindSpeed;
     private TextView weatherPressure;
     private Button weatherOkBtn;
-    private HistoryLogic logic;
 
     public WeatherFragment() {
         // Required empty public constructor
@@ -50,12 +48,6 @@ public class WeatherFragment extends Fragment implements Constants {
         weatherPressure.setText(String.format("%.4s", bundle.getString(PRESSURE)));
         weatherConditions.setText(bundle.getString(WEATHER_CONDITIONS));
         weatherCityName.setText(bundle.getString(CITY_NAME));
-
-        History history = new History();
-        history.setDate(date.toString());
-        history.setName(weatherCityName.getText().toString());
-        history.setTemp(weatherTemperature.getText().toString());
-      //  logic.addHistory(history);
 
         btnWeatherClick(weatherOkBtn);
         return view;

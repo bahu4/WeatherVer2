@@ -21,18 +21,18 @@ public interface HistoryDAO {
     @Delete
     void delete(History history);
 
-    @Query("SELECT COUNT() FROM History")
+    @Query("SELECT COUNT() FROM HISTORY")
     int getCount();
 
-    @Query("DELETE FROM History")
+    @Query("DELETE FROM HISTORY")
     void deleteAll();
 
-    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM History")
+    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM HISTORY")
     Cursor getHistories();
 
-    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM History WHERE ID=:id")
+    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM HISTORY WHERE ID=:id")
     History getHistoriesById(long id);
 
-    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM History LIMIT 1 OFFSET :position")
+    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM HISTORY LIMIT 1 OFFSET :position")
     History getHistory(int position);
 }

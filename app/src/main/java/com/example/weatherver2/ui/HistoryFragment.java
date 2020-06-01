@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weatherver2.HistoryLogic;
 import com.example.weatherver2.R;
 import com.example.weatherver2.Repository;
+import com.example.weatherver2.data.Constants;
 import com.example.weatherver2.data.dataRoom.History;
 import com.example.weatherver2.data.dataRoom.RoomRepository;
 
@@ -21,9 +22,8 @@ import com.example.weatherver2.data.dataRoom.RoomRepository;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements Constants {
 
-    private HistoryAdapter adapter;
     private HistoryLogic logic;
     private Repository repository;
     private Button back;
@@ -37,10 +37,15 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
-
+        repository = new RoomRepository();
         initBackBtn(view);
         initList(view);
-        repository = new RoomRepository();
+
+        History history = new History();
+        history.setName("qweqwe");
+        history.setDate("qweqweqweqwe");
+        history.setTemp("qweqweq");
+        logic.addHistory(history);
 
         return view;
     }
@@ -63,7 +68,7 @@ public class HistoryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new HistoryAdapter(logic.getRepository());
+        HistoryAdapter adapter = new HistoryAdapter(logic.getRepository());
         logic.setAdapter(adapter);
         adapter.setOnMenuItemClickListener(new HistoryAdapter.OnMenuItemClickListener() {
             @Override

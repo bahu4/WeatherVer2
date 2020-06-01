@@ -15,15 +15,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends BaseActivity {
 
-    private Repository repository;
-    private HistoryLogic historyLogic;
     private AppBarConfiguration mAppBarConfiguration;
-    List<String> historyList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

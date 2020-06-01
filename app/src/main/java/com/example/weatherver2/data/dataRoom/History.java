@@ -46,13 +46,4 @@ public class History {
     public void setTemp(String temp) {
         this.temp = temp;
     }
-
-    public History Copy(long id) {
-        History newHistory = new History();
-        newHistory.setDate(this.getDate());
-        newHistory.setName(this.getName());
-        newHistory.setTemp(this.getTemp());
-        newHistory.setId(id);
-        return newHistory;
-    }
 }
