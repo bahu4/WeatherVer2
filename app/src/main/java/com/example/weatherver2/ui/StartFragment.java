@@ -11,12 +11,13 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-
 import com.example.weatherver2.HistoryLogic;
 import com.example.weatherver2.R;
+import com.example.weatherver2.Repository;
 import com.example.weatherver2.data.Constants;
 import com.example.weatherver2.data.RetrofitRequest;
 import com.example.weatherver2.data.dataRoom.History;
+import com.example.weatherver2.data.dataRoom.RoomRepository;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
@@ -117,7 +118,6 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
     @Override
     public void callingBack(float temp, String name, float windSpeed, float pressure, String weather) {
         WeatherFragment weatherFragment = new WeatherFragment();
-        HistoryFragment historyFragment = new HistoryFragment();
         FragmentManager fragmentManager = getFragmentManager();
         Bundle bundle = new Bundle();
         bundle.putString(TEMPERATURE, String.format("%.0f", temp));
@@ -126,8 +126,23 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
         bundle.putString(WEATHER_CONDITIONS, weather);
         bundle.putString(CITY_NAME, name.substring(0, 1).toUpperCase() + name.substring(1));
         weatherFragment.setArguments(bundle);
-        historyFragment.setArguments(bundle);
+        addToDatabase(temp, name, windSpeed, pressure, weather);
         fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, weatherFragment).commit();
+    }
+
+    private void addToDatabase(float temp, String name, float windSpeed, float pressure, String weather) {
+        Repository repository = new RoomRepository();
+        HistoryLogic historyLogic = new HistoryLogic(repository);
+        History history = new History();
+        HistoryAdapter adapter = new HistoryAdapter(historyLogic.getRepository());
+        historyLogic.setAdapter(adapter);
+        history.setWeather(weather);
+        history.setName(name.substring(0, 1).toUpperCase() + name.substring(1));
+        history.setDate(DateFormat.getDateInstance().format(new Date()));
+        history.setTemp(String.format("%.0f", temp) + " °C");
+        history.setPressure(String.format("%.0f", pressure));
+        history.setwSpeed(String.format("%.0f", windSpeed));
+        historyLogic.addHistory(history);
     }
 
     @Override

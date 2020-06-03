@@ -29,7 +29,6 @@ public class HistoryFragment extends Fragment implements Constants {
     private Button back;
 
     public HistoryFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -40,12 +39,6 @@ public class HistoryFragment extends Fragment implements Constants {
         repository = new RoomRepository();
         initBackBtn(view);
         initList(view);
-
-        History history = new History();
-        history.setName("qweqwe");
-        history.setDate("qweqweqweqwe");
-        history.setTemp("qweqweq");
-        logic.addHistory(history);
 
         return view;
     }

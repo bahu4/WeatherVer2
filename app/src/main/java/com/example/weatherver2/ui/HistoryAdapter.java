@@ -54,24 +54,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     public interface OnMenuItemClickListener {
         void onItemDeleteClick(History history);
+
         void onItemDeleteAllClick(History history);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView historyId;
+        private TextView historyWeather;
         private TextView historyDate;
         private TextView historyCityName;
         private TextView historyTemp;
+        private TextView historyWindSpeed;
+        private TextView historyPressure;
+        private TextView historyId;
         private History history;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            historyId = itemView.findViewById(R.id.historyId);
-            historyDate = itemView.findViewById(R.id.historyDate);
-            historyCityName = itemView.findViewById(R.id.historyCityName);
-            historyTemp = itemView.findViewById(R.id.historyTemp);
 
+            initField(itemView);
             historyCityName.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -84,11 +86,24 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             });
         }
 
+        private void initField(@NonNull View itemView) {
+            historyWeather = itemView.findViewById(R.id.historyWeather);
+            historyDate = itemView.findViewById(R.id.historyDate);
+            historyCityName = itemView.findViewById(R.id.historyCityName);
+            historyTemp = itemView.findViewById(R.id.historyTemp);
+            historyWindSpeed = itemView.findViewById(R.id.historyWindSpeed);
+            historyPressure = itemView.findViewById(R.id.historyPressure);
+            historyId = itemView.findViewById(R.id.historyId);
+        }
+
         public void bind(History history) {
             this.history = history;
             historyDate.setText(history.getDate());
             historyCityName.setText((history.getName()));
             historyTemp.setText(history.getTemp());
+            historyWeather.setText(history.getWeather());
+            historyPressure.setText(history.getPressure());
+            historyWindSpeed.setText(history.getwSpeed());
         }
 
         private void showPopupMeny(View view) {

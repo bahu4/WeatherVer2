@@ -27,12 +27,12 @@ public interface HistoryDAO {
     @Query("DELETE FROM HISTORY")
     void deleteAll();
 
-    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM HISTORY")
+    @Query("SELECT ID, DATE, NAME, TEMPERATURE, WEATHER, WINDSPEED, PRESSURE FROM HISTORY")
     Cursor getHistories();
 
-    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM HISTORY WHERE ID=:id")
+    @Query("SELECT ID, DATE, NAME, TEMPERATURE, WEATHER, WINDSPEED, PRESSURE FROM HISTORY WHERE ID=:id")
     History getHistoriesById(long id);
 
-    @Query("SELECT ID, DATE, NAME, TEMPERATURE FROM HISTORY LIMIT 1 OFFSET :position")
+    @Query("SELECT * FROM HISTORY LIMIT 1 OFFSET :position")
     History getHistory(int position);
 }
