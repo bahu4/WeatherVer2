@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -13,17 +14,19 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.weatherver2.R;
 import com.example.weatherver2.data.Constants;
-import com.example.weatherver2.data.HttpRequest;
-import com.example.weatherver2.data.weather.WeatherRequest;
+import com.example.weatherver2.data.RetrofitRequest;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StartFragment extends Fragment implements Constants, HttpRequest.CallbackRequest {
+public class StartFragment extends Fragment implements Constants, RetrofitRequest.RetrofitCallback {
 
     private Button settings;
     private Button start;
@@ -31,6 +34,7 @@ public class StartFragment extends Fragment implements Constants, HttpRequest.Ca
     private Button history;
     private TextView dateView;
     private TextInputEditText cityName;
+    private ImageView imageView;
 
     public StartFragment() {
         // Required empty public constructor
@@ -45,12 +49,12 @@ public class StartFragment extends Fragment implements Constants, HttpRequest.Ca
         SettingsFragment settingsFragment = new SettingsFragment();
         CityListFragment cityListFragment = new CityListFragment();
         HistoryFragment historyFragment = new HistoryFragment();
-
-        HttpRequest.CallbackRequest callbackRequest = this;
+        RetrofitRequest.RetrofitCallback retroCall = this;
         StartFragment startFragment = this;
 
         initField(view);
         initDate();
+        initWallpaper();
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -63,11 +67,27 @@ public class StartFragment extends Fragment implements Constants, HttpRequest.Ca
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HttpRequest httpRequest = new HttpRequest(callbackRequest, cityName, startFragment);
-                httpRequest.request();
+                RetrofitRequest retrofitRequest = new RetrofitRequest(cityName, startFragment, retroCall);
+                retrofitRequest.initRetrofit();
+                retrofitRequest.request();
             }
         });
         return view;
+    }
+
+    private void initWallpaper() {
+        int hour = new GregorianCalendar().get(Calendar.HOUR);
+        if (hour > 5 && hour < 23) {
+            Picasso.get()
+                    .load("https://media.fotki.com/2v2HtB1RMx9YC2F.jpg")
+                    .resize(800, 800)
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            Picasso.get()
+                    .load("https://media.fotki.com/2v2HB9ZMGx9YC2F.jpg")
+                    .into(imageView);
+        }
     }
 
     private void initDate() {
@@ -82,6 +102,7 @@ public class StartFragment extends Fragment implements Constants, HttpRequest.Ca
         dateView = view.findViewById(R.id.dateViewSettings);
         cityName = view.findViewById(R.id.editCityName);
         history = view.findViewById(R.id.historyBtn);
+        imageView = view.findViewById(R.id.imageView);
     }
 
     private void clickProcessing(Button btn, Fragment fragment) {
@@ -91,22 +112,24 @@ public class StartFragment extends Fragment implements Constants, HttpRequest.Ca
         });
     }
 
-    public void showDialog() {
-        DialogBuilderFragment dialogBuilderFragment = new DialogBuilderFragment();
-        dialogBuilderFragment.show(getFragmentManager(), "dBuilder");
-    }
-
     @Override
-    public void callback(WeatherRequest weatherRequest) {
+    public void callingBack(float temp, String name, float windSpeed, float pressure, String weather) {
         WeatherFragment weatherFragment = new WeatherFragment();
         FragmentManager fragmentManager = getFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putString(TEMPERATURE, String.format("%.0f", weatherRequest.getMain().getTemp()));
-        bundle.putString(WIND_SPEED, String.format("%d", weatherRequest.getWind().getSpeed()));
-        bundle.putString(PRESSURE, String.format("%.0f", weatherRequest.getMain().getPressure()));
-        bundle.putString(WEATHER_CONDITIONS, String.format("%s", weatherRequest.getClouds().getAll()));
-        bundle.putString(CITY_NAME, cityName.getText().toString());
+        bundle.putString(TEMPERATURE, String.format("%.0f", temp));
+        bundle.putString(WIND_SPEED, String.format("%.0f", windSpeed));
+        bundle.putString(PRESSURE, String.format("%.0f", pressure));
+        bundle.putString(WEATHER_CONDITIONS, weather);
+        bundle.putString(CITY_NAME, name.substring(0, 1).toUpperCase() + name.substring(1));
         weatherFragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, weatherFragment).commit();
+    }
+
+    @Override
+    public void errorDialog(int dialogId) {
+
+        DialogBuilderFragment dialogBuilderFragment = new DialogBuilderFragment(dialogId, this);
+        dialogBuilderFragment.show(getFragmentManager(), "dBuilder");
     }
 }
