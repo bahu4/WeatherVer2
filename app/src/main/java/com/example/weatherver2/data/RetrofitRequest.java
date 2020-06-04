@@ -14,11 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitRequest implements Constants {
 
-    OpenWeather openWeather;
-    TextInputEditText cityName;
-    StartFragment startFragment;
-    Retrofit retrofit;
-    RetrofitCallback retrofitCallback;
+    private OpenWeather openWeather;
+    private TextInputEditText cityName;
+    private StartFragment startFragment;
+    private Retrofit retrofit;
+    private RetrofitCallback retrofitCallback;
 
     public interface RetrofitCallback {
         void callingBack(float temp, String name, float windSpeed, float pressure, String weather);

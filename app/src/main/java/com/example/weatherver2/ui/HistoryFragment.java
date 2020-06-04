@@ -11,17 +11,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.weatherver2.MainActivity;
+import com.example.weatherver2.HistoryLogic;
 import com.example.weatherver2.R;
-import com.example.weatherver2.data.HistoryListAdapter;
+import com.example.weatherver2.Repository;
+import com.example.weatherver2.data.Constants;
+import com.example.weatherver2.data.dataRoom.History;
+import com.example.weatherver2.data.dataRoom.RoomRepository;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements Constants {
 
-    private HistoryListAdapter adapter;
+    private HistoryLogic logic;
+    private Repository repository;
     private Button back;
 
     public HistoryFragment() {
@@ -33,9 +37,15 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
-
+        repository = new RoomRepository();
         initBackBtn(view);
         initList(view);
+
+        History history = new History();
+        history.setName("qweqwe");
+        history.setDate("qweqweqweqwe");
+        history.setTemp("qweqweq");
+        logic.addHistory(history);
 
         return view;
     }
@@ -53,11 +63,24 @@ public class HistoryFragment extends Fragment {
     }
 
     private void initList(View view) {
+        logic = new HistoryLogic(repository);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerHistory);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new HistoryListAdapter(((MainActivity) getActivity()).getHistoryList(), this);
+        HistoryAdapter adapter = new HistoryAdapter(logic.getRepository());
+        logic.setAdapter(adapter);
+        adapter.setOnMenuItemClickListener(new HistoryAdapter.OnMenuItemClickListener() {
+            @Override
+            public void onItemDeleteClick(History history) {
+                logic.deleteHistory(history);
+            }
+
+            @Override
+            public void onItemDeleteAllClick(History history) {
+                logic.deleteAll();
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 }

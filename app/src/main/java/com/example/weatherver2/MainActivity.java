@@ -15,13 +15,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends BaseActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    List<String> historyList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +77,5 @@ public class MainActivity extends BaseActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    public void addElement(String cityName) {
-        historyList.add(cityName);
-    }
-
-    public List<String> getHistoryList() {
-        return historyList;
     }
 }
