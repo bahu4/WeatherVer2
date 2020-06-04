@@ -12,5 +12,7 @@ public interface Constants {
     String WIND_SPEED = "com.example.weatherver2.ui.WINDSPEED";
     String PRESSURE = "com.example.weatherver2.ui.PRESSURE";
     String WEATHER_CONDITIONS = "com.example.weatherver2.ui.WEATHER_CONDITIONS";
-    String LAST_INQUIRY = "com.example.weatherver2.ui.LAST_INQUIRY";
+    String ACTION_SEND_MSG = "com.example.weatherver2.ACTION_SEND_MSG";
+    String SEND_MSG = "com.example.weatherver2.SEND_MSG";
+    String CHANNEL_ID = "com.example.weatherver2.data.CHANNEL_ID";
 }

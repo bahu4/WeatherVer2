@@ -41,6 +41,6 @@
     <string name="arkhangelsk">Arkhangelsk</string>
     <string name="error">Network connection error</string>
 
-
-
+    <string name="network_false">Network connection: false</string>
+    <string name="network_true">Network connection: true</string>
 </resources>
