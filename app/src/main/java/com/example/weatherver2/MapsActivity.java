@@ -50,16 +50,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         initView();
         requestPermissions();
+
     }
 
     private void initView() {
         address = findViewById(R.id.citySearchOnMap);
         search = findViewById(R.id.searchOnMapBtn);
+        back = findViewById(R.id.backBtn);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initSearchByAddress();
     }
 
     private void initSearchByAddress() {
-        final TextInputEditText address = findViewById(R.id.citySearchOnMap);
+//        address = findViewById(R.id.citySearchOnMap);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +77,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void run() {
                         try {
-                            // Получаем координаты по адресу
                             List<Address> addresses = geocoder.getFromLocationName(searchText, 1);
                             if (addresses.size() > 0) {
                                 final LatLng location = new LatLng(addresses.get(0).getLatitude(),
