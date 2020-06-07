@@ -1,5 +1,6 @@
 package com.example.weatherver2.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.weatherver2.HistoryLogic;
+import com.example.weatherver2.MapsActivity;
 import com.example.weatherver2.R;
 import com.example.weatherver2.Repository;
 import com.example.weatherver2.data.Constants;
@@ -35,6 +37,7 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
     private Button start;
     private Button cityList;
     private Button history;
+    private Button mapBtn;
     private TextView dateView;
     private TextInputEditText cityName;
     private ImageView imageView;
@@ -75,6 +78,13 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
                 retrofitRequest.request();
             }
         });
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapsActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -106,6 +116,7 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
         cityName = view.findViewById(R.id.editCityName);
         history = view.findViewById(R.id.historyBtn);
         imageView = view.findViewById(R.id.imageView);
+        mapBtn = view.findViewById(R.id.mapBtn);
     }
 
     private void clickProcessing(Button btn, Fragment fragment) {
