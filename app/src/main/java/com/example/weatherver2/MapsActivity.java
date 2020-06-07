@@ -4,6 +4,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -37,9 +38,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TextInputEditText address;
     private Button search;
     private Button back;
+    private  Button findOutTheWeather;
     private Marker marker;
     private List<Marker> markers = new ArrayList<Marker>();
     float zoom = 12;
+    String pointLatitude;
+    String pointLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         initView();
         requestPermissions();
+        findWeather();
 
+    }
+
+    private void findWeather() {
+        findOutTheWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+                intent.putExtra(LAT, pointLatitude);
+                intent.putExtra(LNG, pointLongitude);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void setPointLatitude(String pointLatitude) {
+        this.pointLatitude = pointLatitude;
+    }
+
+    public void setPointLongitude(String pointLongitude) {
+        this.pointLongitude = pointLongitude;
     }
 
     private void initView() {
         address = findViewById(R.id.citySearchOnMap);
         search = findViewById(R.id.searchOnMapBtn);
+        findOutTheWeather = findViewById(R.id.findWeatherBtnOnMap);
         back = findViewById(R.id.backBtn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +145,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onMapLongClick(LatLng latLng) {
                 addMarker(latLng);
                 getAddress(latLng);
-//                drawLine();
             }
         });
     }
@@ -180,11 +205,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onLocationChanged(Location location) {
                     double lat = location.getLatitude();
                     String latitude = Double.toString(lat);
-//                    textLatitude.setText(latitude);
+                    setPointLatitude(latitude);
 
                     double lng = location.getLongitude();
                     String longitude = Double.toString(lng);
-//                    textLongitude.setText(longitude);
+                    setPointLongitude(longitude);
 
                     LatLng currentPosition = new LatLng(lat, lng);
                     marker.setPosition(currentPosition);

@@ -27,7 +27,7 @@
         app:layout_constraintVertical_bias="0.49" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/findWeatherBtnOnMap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/find_out_the_weather"
@@ -39,7 +39,7 @@
         android:id="@+id/textInputLayout2"
         android:layout_width="309dp"
         android:layout_height="62dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/findWeatherBtnOnMap"
         app:layout_constraintEnd_toStartOf="@+id/searchOnMapBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toTopOf="@+id/backBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button">
+        app:layout_constraintTop_toBottomOf="@+id/findWeatherBtnOnMap">
 
         <include layout="@layout/activity_maps" />
 
