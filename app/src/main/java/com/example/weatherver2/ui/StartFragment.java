@@ -35,6 +35,7 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
     private Button start;
     private Button cityList;
     private Button history;
+    private Button mapBtn;
     private TextView dateView;
     private TextInputEditText cityName;
     private ImageView imageView;
@@ -52,6 +53,7 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
         SettingsFragment settingsFragment = new SettingsFragment();
         CityListFragment cityListFragment = new CityListFragment();
         HistoryFragment historyFragment = new HistoryFragment();
+        MapsFragment mapsFragment = new MapsFragment();
         RetrofitRequest.RetrofitCallback retroCall = this;
         StartFragment startFragment = this;
 
@@ -67,6 +69,7 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
         clickProcessing(settings, settingsFragment);
         clickProcessing(cityList, cityListFragment);
         clickProcessing(history, historyFragment);
+        clickProcessing(mapBtn,mapsFragment);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +109,7 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
         cityName = view.findViewById(R.id.editCityName);
         history = view.findViewById(R.id.historyBtn);
         imageView = view.findViewById(R.id.imageView);
+        mapBtn = view.findViewById(R.id.mapBtn);
     }
 
     private void clickProcessing(Button btn, Fragment fragment) {

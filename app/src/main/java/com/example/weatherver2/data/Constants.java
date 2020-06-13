@@ -15,4 +15,7 @@ public interface Constants {
     String ACTION_SEND_MSG = "com.example.weatherver2.ACTION_SEND_MSG";
     String SEND_MSG = "com.example.weatherver2.SEND_MSG";
     String CHANNEL_ID = "com.example.weatherver2.data.CHANNEL_ID";
+    int PERMISSION_REQUEST_CODE = 10;
+    String LAT = "com.example.weatherver2.LAT";
+    String LNG = "com.example.weatherver2.LNG";
 }

@@ -22,6 +22,7 @@ public class RetrofitRequest implements Constants {
 
     public interface RetrofitCallback {
         void callingBack(float temp, String name, float windSpeed, float pressure, String weather);
+
         void errorDialog(int dialogId);
     }
 
