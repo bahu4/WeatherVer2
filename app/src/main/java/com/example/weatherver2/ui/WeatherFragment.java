@@ -10,12 +10,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.weatherver2.HistoryLogic;
 import com.example.weatherver2.R;
-import com.example.weatherver2.Repository;
 import com.example.weatherver2.data.Constants;
-
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,18 +35,20 @@ public class WeatherFragment extends Fragment implements Constants {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
 
-        initWeatherField(view);
         Bundle bundle = getArguments();
-        Date date = new Date();
+        initWeatherField(view);
+        getWeather(bundle);
+        btnWeatherClick(weatherOkBtn);
 
+        return view;
+    }
+
+    private void getWeather(Bundle bundle) {
         weatherTemperature.setText(bundle.getString(TEMPERATURE) + " °C");
         weatherWindSpeed.setText(bundle.getString(WIND_SPEED));
         weatherPressure.setText(String.format("%.4s", bundle.getString(PRESSURE)));
         weatherConditions.setText(bundle.getString(WEATHER_CONDITIONS));
         weatherCityName.setText(bundle.getString(CITY_NAME));
-
-        btnWeatherClick(weatherOkBtn);
-        return view;
     }
 
     private void initWeatherField(View view) {

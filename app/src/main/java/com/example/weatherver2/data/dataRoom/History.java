@@ -14,6 +14,36 @@ public class History {
     public String name;
     @ColumnInfo(name = "TEMPERATURE")
     public String temp;
+    @ColumnInfo(name = "PRESSURE")
+    public String pressure;
+    @ColumnInfo(name = "WINDSPEED")
+    public String wSpeed;
+    @ColumnInfo(name = "WEATHER")
+    public String weather;
+
+    public String getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(String pressure) {
+        this.pressure = pressure;
+    }
+
+    public String getwSpeed() {
+        return wSpeed;
+    }
+
+    public void setwSpeed(String wSpeed) {
+        this.wSpeed = wSpeed;
+    }
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
 
     public long getId() {
         return id;

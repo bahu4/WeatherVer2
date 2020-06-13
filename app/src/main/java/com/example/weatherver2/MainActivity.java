@@ -1,10 +1,13 @@
 package com.example.weatherver2;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.weatherver2.data.NetworkStatusReceiver;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends BaseActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private NetworkStatusReceiver receiver = new NetworkStatusReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,18 @@ public class MainActivity extends BaseActivity {
         initToolbar();
         initDrawer();
         runTheme();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
     }
 
     private void runTheme() {
@@ -57,7 +73,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }

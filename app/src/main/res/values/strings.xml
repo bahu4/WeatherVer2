@@ -6,17 +6,13 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_exit">Close</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_history">History</string>
     <string name="menu_city_list">City list</string>
-
     <string name="menu_delete">Delete</string>
     <string name="menu_deleteAll">Delete All</string>
-
     <string name="home_second">Home Second</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="city_name">City Name</string>
     <string name="time">Time:</string>
@@ -40,7 +36,5 @@
     <string name="st_petersburg">St. Petersburg</string>
     <string name="arkhangelsk">Arkhangelsk</string>
     <string name="error">Network connection error</string>
-
-
-
+    <string name="network_false">Network connection: false</string>
 </resources>
