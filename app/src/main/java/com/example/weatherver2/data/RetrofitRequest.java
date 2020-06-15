@@ -25,7 +25,7 @@ public class RetrofitRequest implements Constants {
     String longitude;
 
     public interface RetrofitCallback {
-        void callingBack(float temp, String name, float windSpeed, float pressure, String weather);
+        void callingBack(float temp, String name, float windSpeed, float pressure, String weather, float windDir);
 
         void errorDialog(int dialogId);
     }
@@ -70,7 +70,8 @@ public class RetrofitRequest implements Constants {
                             float windSpeed = response.body().getWind().getSpeed();
                             float pressure = response.body().getMain().getPressure();
                             String weather = response.body().getWeather()[0].getDescription();
-                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather);
+                            float windDir = response.body().getWind().getDeg();
+                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather, windDir);
                         }
                         if (!response.isSuccessful() && response.errorBody() != null) {
                             retrofitCallback.errorDialog(1);
@@ -95,7 +96,8 @@ public class RetrofitRequest implements Constants {
                             float windSpeed = response.body().getWind().getSpeed();
                             float pressure = response.body().getMain().getPressure();
                             String weather = response.body().getWeather()[0].getDescription();
-                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather);
+                            float windDir = response.body().getWind().getDeg();
+                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather, windDir);
                         }
                         if (!response.isSuccessful() && response.errorBody() != null) {
                             retrofitCallback.errorDialog(1);

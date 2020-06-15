@@ -20,6 +20,16 @@ public class History {
     public String wSpeed;
     @ColumnInfo(name = "WEATHER")
     public String weather;
+    @ColumnInfo(name = "WINDDIR")
+    public String windDir;
+
+    public String getWindDir() {
+        return windDir;
+    }
+
+    public void setWindDir(String windDir) {
+        this.windDir = windDir;
+    }
 
     public String getPressure() {
         return pressure;

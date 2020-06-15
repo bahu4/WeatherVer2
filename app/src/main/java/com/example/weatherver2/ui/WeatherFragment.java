@@ -45,7 +45,7 @@ public class WeatherFragment extends Fragment implements Constants {
 
     private void getWeather(Bundle bundle) {
         weatherTemperature.setText(bundle.getString(TEMPERATURE) + " °C");
-        weatherWindSpeed.setText(bundle.getString(WIND_SPEED));
+        weatherWindSpeed.setText(bundle.getString(WIND_SPEED) + " " + bundle.getString(WIND_DIRECTION));
         weatherPressure.setText(String.format("%.4s", bundle.getString(PRESSURE)));
         weatherConditions.setText(bundle.getString(WEATHER_CONDITIONS));
         weatherCityName.setText(bundle.getString(CITY_NAME));

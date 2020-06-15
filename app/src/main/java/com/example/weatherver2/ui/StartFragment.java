@@ -69,7 +69,7 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
         clickProcessing(settings, settingsFragment);
         clickProcessing(cityList, cityListFragment);
         clickProcessing(history, historyFragment);
-        clickProcessing(mapBtn,mapsFragment);
+        clickProcessing(mapBtn, mapsFragment);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,21 +120,44 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
     }
 
     @Override
-    public void callingBack(float temp, String name, float windSpeed, float pressure, String weather) {
+    public void callingBack(float temp, String name, float windSpeed, float pressure, String weather, float windDir) {
         WeatherFragment weatherFragment = new WeatherFragment();
         FragmentManager fragmentManager = getFragmentManager();
         Bundle bundle = new Bundle();
         bundle.putString(TEMPERATURE, String.format("%.0f", temp));
         bundle.putString(WIND_SPEED, String.format("%.0f", windSpeed));
         bundle.putString(PRESSURE, String.format("%.0f", pressure));
+        bundle.putString(WIND_DIRECTION, windDirection(windDir));
         bundle.putString(WEATHER_CONDITIONS, weather);
         bundle.putString(CITY_NAME, name.substring(0, 1).toUpperCase() + name.substring(1));
         weatherFragment.setArguments(bundle);
-        addToDatabase(temp, name, windSpeed, pressure, weather);
+        addToDatabase(temp, name, windSpeed, pressure, weather, windDir);
         fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, weatherFragment).commit();
     }
 
-    private void addToDatabase(float temp, String name, float windSpeed, float pressure, String weather) {
+    private String windDirection(float deg) {
+
+        if (deg >= 20 && deg < 70) {
+            return getString(R.string.northeastern);
+        } else if (deg >= 70 && deg < 110) {
+            return getString(R.string.eastern);
+        } else if (deg >= 110 && deg < 160) {
+            return getString(R.string.southeastern);
+        } else if (deg >= 160 && deg < 200) {
+            return getString(R.string.southern);
+        } else if (deg >= 200 && deg < 250) {
+            return getString(R.string.southwestern);
+        } else if (deg >= 250 && deg < 290) {
+            return getString(R.string.western);
+        } else if (deg >= 290 && deg < 340) {
+            return getString(R.string.northwestern);
+        } else {
+            return getString(R.string.northern);
+        }
+    }
+
+    private void addToDatabase(float temp, String name, float windSpeed, float pressure, String
+            weather, float windDir) {
         Repository repository = new RoomRepository();
         HistoryLogic historyLogic = new HistoryLogic(repository);
         History history = new History();
@@ -145,7 +168,7 @@ public class StartFragment extends Fragment implements Constants, RetrofitReques
         history.setDate(DateFormat.getDateInstance().format(new Date()));
         history.setTemp(String.format("%.0f", temp) + " °C");
         history.setPressure(String.format("%.0f", pressure));
-        history.setwSpeed(String.format("%.0f", windSpeed));
+        history.setwSpeed(String.format("%.0f", windSpeed) + " " + windDirection(windDir));
         historyLogic.addHistory(history);
     }
 

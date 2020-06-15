@@ -41,4 +41,12 @@
     <string name="find_on_the_map">find on the map</string>
     <string name="search">Search</string>
     <string name="back">Back</string>
+    <string name="northern">Northern</string>
+    <string name="northwestern">Northwestern</string>
+    <string name="western">Western</string>
+    <string name="southwestern">Southwestern</string>
+    <string name="southern">Southern</string>
+    <string name="southeastern">Southeastern</string>
+    <string name="eastern">Eastern</string>
+    <string name="northeastern">Northeastern</string>
 </resources>
