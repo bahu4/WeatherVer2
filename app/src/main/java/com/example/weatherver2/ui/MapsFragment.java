@@ -295,7 +295,7 @@ public class MapsFragment extends Fragment implements Constants, RetrofitRequest
     }
 
     @Override
-    public void callingBack(float temp, String name, float windSpeed, float pressure, String weather, float windDir) {
+    public void callingBack(float temp, String name, float windSpeed, float pressure, String weather, float windDir, String icon) {
         WeatherFragment weatherFragment = new WeatherFragment();
         FragmentManager fragmentManager = getFragmentManager();
         Bundle bundle = new Bundle();
@@ -305,6 +305,7 @@ public class MapsFragment extends Fragment implements Constants, RetrofitRequest
         bundle.putString(WEATHER_CONDITIONS, weather);
         bundle.putString(WIND_DIRECTION, windDirection(windDir));
         bundle.putString(CITY_NAME, name.substring(0, 1).toUpperCase() + name.substring(1));
+        bundle.putString(ICON, icon);
         weatherFragment.setArguments(bundle);
         addToDatabase(temp, name, windSpeed, pressure, weather, windDir);
         fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, weatherFragment).commit();

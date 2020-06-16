@@ -19,4 +19,5 @@ public interface Constants {
     String LAT = "com.example.weatherver2.LAT";
     String LNG = "com.example.weatherver2.LNG";
     String WIND_DIRECTION = "com.example.weatherver2.ui.WIND_DIRECTION";
+    String ICON = "com.example.weatherver2.ui.ICON";
 }

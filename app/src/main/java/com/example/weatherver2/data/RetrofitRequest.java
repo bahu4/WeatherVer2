@@ -25,7 +25,7 @@ public class RetrofitRequest implements Constants {
     String longitude;
 
     public interface RetrofitCallback {
-        void callingBack(float temp, String name, float windSpeed, float pressure, String weather, float windDir);
+        void callingBack(float temp, String name, float windSpeed, float pressure, String weather, float windDir, String icon);
 
         void errorDialog(int dialogId);
     }
@@ -71,7 +71,8 @@ public class RetrofitRequest implements Constants {
                             float pressure = response.body().getMain().getPressure();
                             String weather = response.body().getWeather()[0].getDescription();
                             float windDir = response.body().getWind().getDeg();
-                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather, windDir);
+                            String icon = response.body().getWeather()[0].getIcon();
+                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather, windDir, icon);
                         }
                         if (!response.isSuccessful() && response.errorBody() != null) {
                             retrofitCallback.errorDialog(1);
@@ -97,7 +98,8 @@ public class RetrofitRequest implements Constants {
                             float pressure = response.body().getMain().getPressure();
                             String weather = response.body().getWeather()[0].getDescription();
                             float windDir = response.body().getWind().getDeg();
-                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather, windDir);
+                            String icon = response.body().getWeather()[0].getIcon();
+                            retrofitCallback.callingBack(temp, name, windSpeed, pressure, weather, windDir, icon);
                         }
                         if (!response.isSuccessful() && response.errorBody() != null) {
                             retrofitCallback.errorDialog(1);
