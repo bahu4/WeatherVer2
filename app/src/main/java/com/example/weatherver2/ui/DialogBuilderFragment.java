@@ -52,7 +52,7 @@ public class DialogBuilderFragment extends DialogFragment implements RetrofitReq
     }
 
     @Override
-    public void callingBack(float temp, String name, float windSpeed, float pressure, String weather) {
+    public void callingBack(float temp, String name, float windSpeed, float pressure, String weather, float windDir, String icon) {
     }
 
     @Override

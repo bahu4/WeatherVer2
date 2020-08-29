@@ -18,4 +18,6 @@ public interface Constants {
     int PERMISSION_REQUEST_CODE = 10;
     String LAT = "com.example.weatherver2.LAT";
     String LNG = "com.example.weatherver2.LNG";
+    String WIND_DIRECTION = "com.example.weatherver2.ui.WIND_DIRECTION";
+    String ICON = "com.example.weatherver2.ui.ICON";
 }
